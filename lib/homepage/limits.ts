@@ -1,0 +1,5 @@
+export const HOMEPAGE_CATEGORY_LIMIT = 6;
+export const HOMEPAGE_CATEGORY_VISIBLE = 5;
+export const HOMEPAGE_FEATURED_LIMIT = 3;
+export const HOMEPAGE_RECENT_LIMIT = 3;
+export const HOMEPAGE_ARTICLE_LIMIT = 3;

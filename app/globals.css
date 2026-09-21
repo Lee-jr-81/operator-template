@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --brand-primary: #1e293b;
+  --brand-secondary: #64748b;
+  --brand-accent: #0f172a;
+  --brand-primary-hover: color-mix(in srgb, var(--brand-primary) 82%, black);
+  --foreground: var(--brand-primary);
+  --font-heading: var(--font-geist-sans);
+  --font-body: var(--font-geist-sans);
+  --public-bg: #fdfdfd;
+  --public-surface: #ffffff;
+  --public-muted: #f1f1ef;
+  --public-text: #1a1916;
+  --public-text-muted: #5c5954;
+  --public-text-subtle: #7a776f;
+  --public-border: #e4e0d8;
+  --public-footer: #2f3033;
+  --radius-button: 8px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+
+  /* Shared control tokens. Public login/enquiry inherit these light defaults.
+     Dashboard overrides them under .dashboard so dark mode cannot leak. */
+  --dash-bg: #f8fafc;
+  --dash-fg: #0f172a;
+  --dash-card: #ffffff;
+  --dash-muted: #f1f5f9;
+  --dash-muted-fg: #475569;
+  --dash-subtle-fg: #64748b;
+  --dash-border: #e2e8f0;
+  --dash-input: #ffffff;
+  --dash-primary: var(--brand-primary);
+  --dash-primary-fg: #ffffff;
+  --dash-destructive: #b91c1c;
+  --dash-destructive-fg: #ffffff;
+  --dash-destructive-bg: #fef2f2;
+  --dash-success: #067647;
+  --dash-success-bg: #ecfdf3;
+  --dash-warning: #b54708;
+  --dash-warning-bg: #fffaeb;
+  --dash-info: #175cd3;
+  --dash-info-bg: #eff8ff;
+}
+
+.dashboard {
+  --dash-bg: #f3f2ef;
+  --dash-fg: #1a1916;
+  --dash-card: #ffffff;
+  --dash-muted: #eceae6;
+  --dash-muted-fg: #5c5954;
+  --dash-subtle-fg: #7a776f;
+  --dash-border: #e0dcd4;
+  --dash-input: #ffffff;
+  --dash-primary: var(--brand-primary);
+  --dash-primary-fg: #ffffff;
+  --dash-destructive: #b42318;
+  --dash-destructive-fg: #ffffff;
+  --dash-destructive-bg: color-mix(in srgb, var(--dash-destructive) 10%, white);
+  --dash-success: #067647;
+  --dash-success-bg: color-mix(in srgb, var(--dash-success) 10%, white);
+  --dash-warning: #b54708;
+  --dash-warning-bg: color-mix(in srgb, var(--dash-warning) 12%, white);
+  --dash-info: #175cd3;
+  --dash-info-bg: color-mix(in srgb, var(--dash-info) 10%, white);
+  --dash-sidebar: color-mix(in srgb, var(--brand-primary) 58%, #1a1916);
+  --dash-sidebar-fg: #f5f4f1;
+  --dash-sidebar-muted: color-mix(in srgb, var(--dash-sidebar-fg) 68%, transparent);
+  --dash-sidebar-hover: color-mix(in srgb, white 8%, transparent);
+  --dash-sidebar-active: color-mix(in srgb, white 13%, transparent);
+  --dash-sidebar-border: color-mix(in srgb, white 10%, transparent);
+  color: var(--dash-fg);
+  background: var(--dash-bg);
+  color-scheme: light;
+}
+
+.dashboard input[type="checkbox"] {
+  accent-color: var(--dash-primary);
+}
+
+html[data-dash-theme="dark"] .dashboard {
+  --dash-bg: #1c1b19;
+  --dash-fg: #f2f0eb;
+  --dash-card: #262522;
+  --dash-muted: #2f2d2a;
+  --dash-muted-fg: #b0aba3;
+  --dash-subtle-fg: #8a857c;
+  --dash-border: #3a3834;
+  --dash-input: #2a2825;
+  --dash-destructive: #f97066;
+  --dash-destructive-fg: #1c1b19;
+  --dash-destructive-bg: color-mix(in srgb, var(--dash-destructive) 16%, var(--dash-card));
+  --dash-success: #75e0a7;
+  --dash-success-bg: color-mix(in srgb, var(--dash-success) 14%, var(--dash-card));
+  --dash-warning: #f7b267;
+  --dash-warning-bg: color-mix(in srgb, var(--dash-warning) 14%, var(--dash-card));
+  --dash-info: #84caff;
+  --dash-info-bg: color-mix(in srgb, var(--dash-info) 14%, var(--dash-card));
+  --dash-sidebar: #161513;
+  --dash-sidebar-fg: #f2f0eb;
+  --dash-sidebar-muted: color-mix(in srgb, var(--dash-sidebar-fg) 64%, transparent);
+  --dash-sidebar-hover: color-mix(in srgb, white 7%, transparent);
+  --dash-sidebar-active: color-mix(in srgb, white 12%, transparent);
+  --dash-sidebar-border: color-mix(in srgb, white 8%, transparent);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .public-media-zoom {
+    transform: none !important;
+  }
+}
