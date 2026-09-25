@@ -31,7 +31,7 @@ Used for:
 - date formatting (`BUSINESS.locale.language`)
 - optional price prefix (`BUSINESS.locale.currencyPrefix`, empty by default)
 - homepage context band (`BUSINESS.homepage.context`) between latest listings and articles
-- homepage proof stats (`BUSINESS.homepage.proof`) — replace with numbers that are true for the platform
+- homepage proof cards (`BUSINESS.homepage.proof`) — each card is an `icon` key (`location`, `paw`, `message`, or `guide`), a `title`, and one sentence in `copy`
 
 `PLATFORM_NAME` remains an optional env override for email attribution only.
 
@@ -52,12 +52,11 @@ public/brand/mark.svg
 public/brand/favicon.svg
 public/brand/og-default.svg
 public/brand/hero.jpg
-public/brand/category-fallback.jpg
 ```
 
-`logo.svg` is for light surfaces (header). `logo-on-dark.svg` is for the dark footer. `hero.jpg` is the homepage photograph. `category-fallback.jpg` is used on Category cards when a Category has no uploaded image.
+`logo.svg` is for light surfaces (header). `logo-on-dark.svg` is for the dark footer. `hero.jpg` is the homepage photograph. A Category with no photograph shows `BRANDING.media.categoryIcon`, which defaults to `mark.svg`.
 
-Colours from `BRANDING.colours` are applied as `--brand-primary`, `--brand-secondary`, and `--brand-accent` on `<html>`. Public surfaces also use `--public-*` tokens in `app/globals.css`. Primary buttons and `:focus-visible` use the brand tokens. Dashboard chrome is unchanged by this styling step.
+Brand hexes come from `BRANDING.colours`. Neutrals live in `app/globals.css`. Those colours are applied as `--brand-primary`, `--brand-secondary`, and `--brand-accent` on `<html>`. Primary buttons, focus, and important links use the brand colour. Semantic colours (success, warning, danger, info) stay separate.
 
 Typography:
 

@@ -33,9 +33,9 @@ export function EnquiryForm({
 
   if (state?.success) {
     return (
-      <div role="status" className="rounded-lg border border-slate-200 bg-white p-6">
+      <div role="status" className="rounded-lg border border-(--public-border) bg-white p-6">
         <h2 className="text-lg font-medium">Enquiry sent</h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="mt-2 text-sm leading-6 text-(--public-text-muted)">
           Thanks — your enquiry has been received.
         </p>
       </div>
@@ -43,13 +43,13 @@ export function EnquiryForm({
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-6">
+    <section className="rounded-lg border border-(--public-border) bg-white p-6">
       <h2 className="text-lg font-medium">Send an Enquiry</h2>
-      <p className="mt-2 text-sm leading-6 text-slate-600">
+      <p className="mt-2 text-sm leading-6 text-(--public-text-muted)">
         The Provider will receive this by email.
       </p>
-      <p className="mt-1 font-medium text-slate-900">{listingTitle}</p>
-      <p className="text-sm text-slate-600">{entityName}</p>
+      <p className="mt-1 font-medium text-(--public-text)">{listingTitle}</p>
+      <p className="text-sm text-(--public-text-muted)">{entityName}</p>
 
       <form action={formAction} className="mt-6 space-y-5" noValidate>
         <input type="hidden" name="listing_id" value={listingId} />
@@ -115,7 +115,7 @@ export function EnquiryForm({
 
         <div className="space-y-1.5">
           <Label htmlFor="enquiry-message">Message</Label>
-          <p id="enquiry-message-help" className="text-sm text-slate-600">
+          <p id="enquiry-message-help" className="text-sm text-(--public-text-muted)">
             Tell them what you would like to know, when you need the service, or
             any questions you have.
           </p>

@@ -28,7 +28,7 @@ export default async function DeleteArticlePage({
         <p className="text-sm">
           <Link
             href="/dashboard/articles"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Articles
           </Link>

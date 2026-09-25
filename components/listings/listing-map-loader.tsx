@@ -9,7 +9,7 @@ const ListingMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full min-h-80 items-center justify-center bg-slate-50 text-sm text-slate-600">
+      <div className="flex h-full min-h-80 items-center justify-center bg-(--public-muted) text-sm text-(--public-text-muted)">
         Loading map…
       </div>
     ),
@@ -28,7 +28,7 @@ export function ListingMapLoader({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-lg border border-slate-200",
+        "overflow-hidden rounded-lg border border-(--public-border)",
         className,
       )}
     >

@@ -64,7 +64,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             className={cn(
               "flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium text-(--dash-sidebar-muted) hover:bg-(--dash-sidebar-hover) hover:text-(--dash-sidebar-fg)",
-              isActive && "bg-(--dash-sidebar-active) text-(--dash-sidebar-fg)",
+              isActive && "bg-(--dash-sidebar-active) text-(--brand-soft)",
             )}
           >
             <NavIcon name={item.icon} />
@@ -186,7 +186,7 @@ export function DashboardShell({
           isNavOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
-        <p className="flex items-center gap-2.5 px-2 py-3">
+        <p className="mb-4 flex items-center gap-2.5 px-2 py-3">
           <img
             src={BRANDING.logo.onDark}
             alt={BUSINESS.shortName}
@@ -217,7 +217,7 @@ export function DashboardShell({
           </button>
           <Link
             href="/"
-            className="inline-flex h-9 min-w-0 items-center gap-2 rounded-lg px-2.5 text-sm font-medium text-(--dash-muted-fg) hover:bg-(--dash-muted) hover:text-(--dash-fg)"
+            className="inline-flex h-9 min-w-0 items-center gap-2 rounded-lg px-2.5 text-sm font-medium text-(--dash-muted-fg) hover:bg-(--dash-muted) hover:text-(--brand-primary)"
           >
             <SiteIcon />
             <span className="truncate">Return to site</span>

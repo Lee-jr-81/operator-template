@@ -15,7 +15,7 @@ import type {
 } from "@/server/articles/types";
 
 const ARTICLE_COLUMNS =
-  "id, title, slug, excerpt, body, hero_image_path, status, published_at, seo_title, seo_description, created_at, updated_at" as const;
+  "id, title, slug, excerpt, body, hero_image_path, hero_focal_x, hero_focal_y, status, published_at, seo_title, seo_description, category_id, created_at, updated_at" as const;
 
 function asArticle(row: {
   id: string;
@@ -24,10 +24,13 @@ function asArticle(row: {
   excerpt: string;
   body: string;
   hero_image_path: string | null;
+  hero_focal_x: number | null;
+  hero_focal_y: number | null;
   status: string;
   published_at: string | null;
   seo_title: string;
   seo_description: string;
+  category_id: string | null;
   created_at: string;
   updated_at: string;
 }): Article {
@@ -38,10 +41,13 @@ function asArticle(row: {
     excerpt: row.excerpt,
     body: row.body,
     hero_image_path: row.hero_image_path,
+    hero_focal_x: row.hero_focal_x,
+    hero_focal_y: row.hero_focal_y,
     status: asArticleStatus(String(row.status)),
     published_at: row.published_at,
     seo_title: row.seo_title,
     seo_description: row.seo_description,
+    category_id: row.category_id,
     created_at: row.created_at,
     updated_at: row.updated_at,
   };
@@ -123,6 +129,7 @@ export async function insertArticle(input: ArticleInput) {
       published_at: input.published_at,
       seo_title: input.seo_title,
       seo_description: input.seo_description,
+      category_id: input.category_id,
     })
     .select(ARTICLE_COLUMNS)
     .maybeSingle();
@@ -143,6 +150,7 @@ export async function updateArticleRecord(id: string, input: ArticleInput) {
       published_at: input.published_at,
       seo_title: input.seo_title,
       seo_description: input.seo_description,
+      category_id: input.category_id,
     })
     .eq("id", id)
     .select(ARTICLE_COLUMNS)
@@ -158,7 +166,25 @@ export async function updateArticleHeroPath(
   const supabase = await createClient();
   const { error } = await supabase
     .from("articles")
-    .update({ hero_image_path: heroImagePath })
+    .update({
+      hero_image_path: heroImagePath,
+      hero_focal_x: null,
+      hero_focal_y: null,
+    })
+    .eq("id", id);
+
+  return { error };
+}
+
+export async function updateArticleHeroFocal(
+  id: string,
+  focalX: number | null,
+  focalY: number | null,
+) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("articles")
+    .update({ hero_focal_x: focalX, hero_focal_y: focalY })
     .eq("id", id);
 
   return { error };
@@ -176,6 +202,8 @@ function toPublicCard(article: {
   slug: string;
   excerpt: string;
   hero_image_path: string | null;
+  hero_focal_x: number | null;
+  hero_focal_y: number | null;
   status: string;
   published_at: string | null;
 }): PublicArticleCard | null {
@@ -192,6 +220,8 @@ function toPublicCard(article: {
     hero_image_url: article.hero_image_path
       ? getArticleHeroPublicUrl(article.hero_image_path)
       : null,
+    hero_focal_x: article.hero_focal_x,
+    hero_focal_y: article.hero_focal_y,
   };
 }
 
@@ -223,6 +253,31 @@ async function queryPublicArticleCards(limit?: number) {
 
 export async function listPublicArticles() {
   return queryPublicArticleCards();
+}
+
+export async function listPublicArticlesByCategoryId(categoryId: string) {
+  if (!isUuid(categoryId)) {
+    return [];
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .select(PUBLIC_ARTICLE_CARD_COLUMNS)
+    .eq("status", "published")
+    .eq("category_id", categoryId)
+    .not("published_at", "is", null)
+    .lte("published_at", new Date().toISOString())
+    .order("published_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to list category articles", { code: error.code });
+    throw new Error("Unable to load Articles.");
+  }
+
+  return (data ?? [])
+    .map((row) => toPublicCard(row))
+    .filter((card): card is PublicArticleCard => Boolean(card));
 }
 
 export async function listLatestPublicArticles(limit: number) {
@@ -266,6 +321,9 @@ export async function getPublicArticleBySlug(slug: string) {
     hero_image_url: article.hero_image_path
       ? getArticleHeroPublicUrl(article.hero_image_path)
       : null,
+    hero_focal_x: article.hero_focal_x,
+    hero_focal_y: article.hero_focal_y,
+    category_id: article.category_id,
   };
 
   return publicArticle;

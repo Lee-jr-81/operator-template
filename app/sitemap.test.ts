@@ -7,6 +7,7 @@ describe("sitemap", () => {
 
     expect(urls.some((url) => url.endsWith("/listings"))).toBe(true);
     expect(urls.some((url) => url.endsWith("/articles"))).toBe(true);
+    expect(urls.some((url) => url.endsWith("/contact"))).toBe(true);
     expect(urls.some((url) => url.includes("/build-specs"))).toBe(false);
   });
 });

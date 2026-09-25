@@ -4,6 +4,13 @@ import { BRANDING } from "@/config/branding";
 import { BUSINESS } from "@/config/business";
 import { TERMINOLOGY } from "@/config/terminology";
 
+const explore = [
+  { href: "/listings", label: TERMINOLOGY.listing.plural },
+  { href: "/categories", label: TERMINOLOGY.category.plural },
+  { href: "/articles", label: "Articles" },
+  { href: "/login", label: "Operator login" },
+];
+
 export function PublicFooter() {
   const year = new Date().getFullYear();
 
@@ -26,30 +33,16 @@ export function PublicFooter() {
           <div>
             <p className="text-sm font-semibold">Explore</p>
             <ul className="mt-4 space-y-3">
-              <li>
-                <Link
-                  href="/listings"
-                  className="text-sm text-white/80 transition duration-200 hover:text-white"
-                >
-                  {TERMINOLOGY.listing.plural}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories"
-                  className="text-sm text-white/80 transition duration-200 hover:text-white"
-                >
-                  {TERMINOLOGY.category.plural}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/articles"
-                  className="text-sm text-white/80 transition duration-200 hover:text-white"
-                >
-                  Articles
-                </Link>
-              </li>
+              {explore.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-white/80 transition duration-200 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

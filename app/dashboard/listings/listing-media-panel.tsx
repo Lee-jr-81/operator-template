@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/form-error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { prepareImageForUpload } from "@/lib/uploads/prepare-image";
 import {
   LISTING_MEDIA_ALT_MAX,
   LISTING_MEDIA_MAX_PER_LISTING,
@@ -17,9 +19,8 @@ import {
   moveListingMedia,
   replaceListingMedia,
   setPrimaryListingMedia,
+  storeListingMedia,
   updateListingMediaAltText,
-  uploadListingMedia,
-  type ListingMediaFormState,
 } from "@/server/listings/media-actions";
 
 type MediaItem = ListingMedia & { url: string };
@@ -31,52 +32,156 @@ export function ListingMediaPanel({
   listingId: string;
   media: MediaItem[];
 }) {
-  const [state, formAction, pending] = useActionState<
-    ListingMediaFormState,
-    FormData
-  >(uploadListingMedia, null);
+  const router = useRouter();
+  const [fileCount, setFileCount] = useState(0);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [pendingLabel, setPendingLabel] = useState<string | null>(null);
   const canAdd = canAddListingMedia(media.length);
+
+  async function onAddImages(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const input = form.elements.namedItem("image");
+    const files =
+      input instanceof HTMLInputElement && input.files
+        ? [...input.files]
+        : [];
+
+    if (files.length === 0) {
+      setFormError("Choose an image to upload.");
+      return;
+    }
+
+    const altInput = form.elements.namedItem("alt_text");
+    const altText =
+      files.length === 1 && altInput instanceof HTMLInputElement
+        ? altInput.value
+        : "";
+
+    setFormError(null);
+
+    for (let index = 0; index < files.length; index += 1) {
+      setPendingLabel(
+        files.length === 1
+          ? "Uploading…"
+          : `Uploading ${index + 1} of ${files.length}…`,
+      );
+
+      let prepared: File;
+      try {
+        prepared = await prepareImageForUpload(files[index]);
+      } catch (error) {
+        setFormError(
+          error instanceof Error
+            ? error.message
+            : "This image could not be prepared. Please try again.",
+        );
+        router.refresh();
+        setPendingLabel(null);
+        return;
+      }
+
+      const data = new FormData();
+      data.set("listing_id", listingId);
+      data.set("image", prepared);
+      data.set("alt_text", altText);
+      const result = await storeListingMedia(data);
+      if (result?.formError) {
+        setFormError(result.formError);
+        router.refresh();
+        setPendingLabel(null);
+        return;
+      }
+    }
+
+    setPendingLabel(null);
+    router.push(`/dashboard/listings/${listingId}?status=media-added`);
+    router.refresh();
+  }
+
+  async function onReplaceImage(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const input = form.elements.namedItem("image");
+    const file =
+      input instanceof HTMLInputElement ? input.files?.[0] : undefined;
+
+    if (!file) {
+      setFormError("Choose an image to upload.");
+      return;
+    }
+
+    setFormError(null);
+    setPendingLabel("Uploading…");
+
+    let prepared: File;
+    try {
+      prepared = await prepareImageForUpload(file);
+    } catch (error) {
+      setFormError(
+        error instanceof Error
+          ? error.message
+          : "This image could not be prepared. Please try again.",
+      );
+      setPendingLabel(null);
+      return;
+    }
+
+    const data = new FormData(form);
+    data.set("image", prepared);
+    await replaceListingMedia(data);
+  }
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-base font-medium">Images</h2>
         <p className="mt-1 text-sm leading-6 text-(--dash-muted-fg)">
-          JPEG, PNG, or WebP, up to 5MB each. The first image becomes the
-          primary image used on cards. You can change that, reorder, or replace
-          images here.
+          JPEG, PNG, or WebP. Large photos are reduced automatically. Choose
+          several images at once. The first image becomes the primary image
+          used on cards. You can change that, reorder, or replace images here.
         </p>
       </div>
 
       {canAdd ? (
-        <form action={formAction} className="space-y-4">
+        <form onSubmit={onAddImages} className="space-y-4">
           <input type="hidden" name="listing_id" value={listingId} />
           <div className="space-y-1.5">
-            <Label htmlFor="image">Add image</Label>
+            <Label htmlFor="image">Add images</Label>
             <Input
               id="image"
               name="image"
               type="file"
               accept="image/jpeg,image/png,image/webp"
+              multiple
               required
+              onChange={(event) =>
+                setFileCount(event.currentTarget.files?.length ?? 0)
+              }
             />
           </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="alt_text">Alt text</Label>
-            <p id="alt-help" className="text-sm text-(--dash-muted-fg)">
-              Briefly describe what is shown in this image. This helps
-              accessibility and gives search engines useful context.
+          {fileCount > 1 ? (
+            <p className="text-sm text-(--dash-muted-fg)">
+              Add a short description on each image after they upload.
             </p>
-            <Input
-              id="alt_text"
-              name="alt_text"
-              maxLength={LISTING_MEDIA_ALT_MAX}
-              aria-describedby="alt-help"
-            />
-          </div>
-          {state?.formError ? <FormError>{state.formError}</FormError> : null}
-          <Button type="submit" disabled={pending}>
-            {pending ? "Uploading…" : "Upload image"}
+          ) : (
+            <div className="space-y-1.5">
+              <Label htmlFor="alt_text">Alt text</Label>
+              <p id="alt-help" className="text-sm text-(--dash-muted-fg)">
+                Briefly describe what is shown in this image. This helps
+                accessibility and gives search engines useful context.
+              </p>
+              <Input
+                id="alt_text"
+                name="alt_text"
+                maxLength={LISTING_MEDIA_ALT_MAX}
+                aria-describedby="alt-help"
+              />
+            </div>
+          )}
+          {formError ? <FormError>{formError}</FormError> : null}
+          <Button type="submit" disabled={pendingLabel !== null}>
+            {pendingLabel ?? (fileCount > 1 ? "Upload images" : "Upload image")}
           </Button>
         </form>
       ) : (
@@ -161,7 +266,7 @@ export function ListingMediaPanel({
                 </Button>
               </form>
 
-              <form action={replaceListingMedia} className="space-y-2">
+              <form onSubmit={onReplaceImage} className="space-y-2">
                 <input type="hidden" name="listing_id" value={listingId} />
                 <input type="hidden" name="media_id" value={item.id} />
                 <Label htmlFor={`replace-${item.id}`}>Replace image</Label>
@@ -171,7 +276,7 @@ export function ListingMediaPanel({
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
                 />
-                <Button type="submit" variant="secondary">
+                <Button type="submit" variant="secondary" disabled={pendingLabel !== null}>
                   Replace
                 </Button>
               </form>

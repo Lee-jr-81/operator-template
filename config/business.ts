@@ -32,22 +32,22 @@ export const BUSINESS = {
     },
     proof: [
       {
-        value: "1",
+        icon: "guide",
         title: "One operator",
-        copy: "Replace BUSINESS.homepage.proof with stats that are true for this platform.",
+        copy: "Replace these cards with facts that are true for this platform.",
       },
       {
-        value: "1",
+        icon: "location",
         title: "One niche",
         copy: "Built around a single specialist market.",
       },
       {
-        value: "1",
+        icon: "message",
         title: "One marketplace",
         copy: "One place focused entirely on this niche.",
       },
       {
-        value: "Direct",
+        icon: "guide",
         title: "Direct to business",
         copy: "Visitors connect with the business behind each listing.",
       },

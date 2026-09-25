@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { TERMINOLOGY } from "@/config/terminology";
 import {
   createArticle,
   updateArticle,
@@ -24,8 +25,15 @@ import {
   generateArticleSlug,
 } from "@/server/articles/slug";
 import type { Article } from "@/server/articles/types";
+import type { Category } from "@/server/categories/types";
 
-export function ArticleForm({ article }: { article?: Article }) {
+export function ArticleForm({
+  article,
+  categories = [],
+}: {
+  article?: Article;
+  categories?: Pick<Category, "id" | "name">[];
+}) {
   const isEditing = Boolean(article);
   const action = isEditing ? updateArticle : createArticle;
   const [state, formAction, pending] = useActionState<ArticleFormState, FormData>(
@@ -62,6 +70,36 @@ export function ArticleForm({ article }: { article?: Article }) {
           />
           {state?.fieldErrors?.title ? (
             <FormError>{state.fieldErrors.title}</FormError>
+          ) : null}
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="category_id">{TERMINOLOGY.category.singular}</Label>
+          <p id="category-help" className="text-sm text-(--dash-muted-fg)">
+            Choose the {TERMINOLOGY.category.singular.toLowerCase()} this guide
+            is about. The public article shows the three latest{" "}
+            {TERMINOLOGY.listing.plural.toLowerCase()} for that{" "}
+            {TERMINOLOGY.category.singular.toLowerCase()}. Leave blank if it is
+            not a {TERMINOLOGY.category.singular.toLowerCase()} guide.
+          </p>
+          <Select
+            id="category_id"
+            name="category_id"
+            defaultValue={article?.category_id ?? ""}
+            aria-describedby="category-help"
+            aria-invalid={Boolean(state?.fieldErrors?.category_id)}
+          >
+            <option value="">
+              Not a {TERMINOLOGY.category.singular.toLowerCase()} guide
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </Select>
+          {state?.fieldErrors?.category_id ? (
+            <FormError>{state.fieldErrors.category_id}</FormError>
           ) : null}
         </div>
 

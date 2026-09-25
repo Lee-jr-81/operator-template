@@ -41,6 +41,8 @@ const article: PublicArticleCard = {
   excerpt: "What to look for before you book.",
   published_at: "2026-08-01T12:00:00.000Z",
   hero_image_url: null,
+  hero_focal_x: null,
+  hero_focal_y: null,
 };
 
 describe("homepage sections", () => {
@@ -202,7 +204,7 @@ describe("homepage sections", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows at most five Category cards", () => {
+  it("shows every category and offers desktop arrows after five", () => {
     render(
       <HomepageCategorySection
         categories={Array.from({ length: 6 }, (_, index) => ({
@@ -214,10 +216,28 @@ describe("homepage sections", () => {
       />,
     );
 
-    expect(screen.getByRole("link", { name: "Category 5" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Category 6" })).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", { name: "Category 6" }),
-    ).not.toBeInTheDocument();
+      screen.getByRole("button", { name: "Next categories" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Previous categories" }),
+    ).toBeDisabled();
+  });
+
+  it("does not show arrows when five categories fit one row", () => {
+    render(
+      <HomepageCategorySection
+        categories={Array.from({ length: 5 }, (_, index) => ({
+          id: `cat-${index}`,
+          name: `Category ${index + 1}`,
+          slug: `category-${index + 1}`,
+          description: "A category.",
+        }))}
+      />,
+    );
+
+    expect(screen.queryByRole("button", { name: "Next categories" })).not.toBeInTheDocument();
   });
 
   it("browse listing cards stay one full-width link", () => {

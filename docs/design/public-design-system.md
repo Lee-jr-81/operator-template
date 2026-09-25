@@ -16,16 +16,17 @@ Defined in `app/globals.css`. Brand colours also inject from `config/branding.ts
 
 | Token | Role | Default |
 |---|---|---|
-| `--public-bg` | Public page background | `#f7f7f6` |
+| `--public-bg` | Public page background | `#ffffff` |
 | `--public-surface` | Cards, header | `#ffffff` |
-| `--public-muted` | Latest Listings band | `#f1f1ef` |
-| `--public-text` | Primary text | `#1a1916` |
-| `--public-text-muted` | Secondary text | `#5c5954` |
-| `--public-text-subtle` | Supporting meta | `#7a776f` |
-| `--public-border` | Card/header borders | `#e4e0d8` |
-| `--public-footer` | Dark footer | `#2f3033` graphite |
-| `--brand-primary` | Brand colour | `#1f4d38` |
-| `--brand-primary-hover` | Darker hover | mix with black |
+| `--public-muted` | Warm cream section | `#faf7f2` |
+| `--public-text` | Primary text | `#252a2a` charcoal |
+| `--public-text-muted` | Secondary text | `#5c6564` |
+| `--public-text-subtle` | Supporting meta | `#7a8281` |
+| `--public-border` | Card/header borders | `#e6e2da` |
+| `--public-footer` | Dark footer | `#252a2a` charcoal |
+| `--brand-primary` | Teal | `#176b68` |
+| `--brand-primary-hover` | Dark teal | `#10504e` |
+| `--brand-soft` | Sage | `#dce8e2` |
 | `--radius-button` | Buttons | `8px` |
 | `--radius-card` | Cards | `12px` |
 | `--radius-panel` | Glass panel | `16px` |
@@ -58,23 +59,23 @@ Hover 150–200ms. Card images scale to `1.02`. Borders strengthen. Titles shift
 
 ## Chrome
 
-**Header** — sticky, ~76px, quiet light surface, 10px blur, logo left, nav right, hamburger on small screens. Scroll lock, Escape, close on navigate. Touch targets ≥48px.
+**Header** — sticky, ~76px, quiet light surface, 10px blur, logo left, nav right, hamburger on small screens. Nav is Listings and Articles only. Scroll lock, Escape, close on navigate. Touch targets ≥48px.
 
-**Footer** — dark graphite surface (`--public-footer`), not brand green. Light logo (`BRANDING.logo.onDark`), tagline, Explore = Listings / Categories / Articles only. Copyright. No Deals, social, newsletter, or invented legal pages. A `--public-bg` band (about 80–112px) sits above the footer.
+**Footer** — charcoal surface (`--public-footer`), not the brand colour. Light logo (`BRANDING.logo.onDark`), tagline, Explore = Listings / Categories / Articles, plus Operator login styled as the same text link. Copyright. No Deals, social, newsletter, or invented legal pages. A `--public-bg` band (about 80–112px) sits above the footer.
 
 ---
 
 ## Cards
 
-**Listing** (`ListingCard`) — whole card is one link to `/listings/[slug]`. Homepage uses the compact card: 3:2 image (~320px wide), 3 / 2 / 1 grid. `/listings` uses `layout="browse"`: stacked 3:2 photo below 768px, then a photo/content row (photo 60% / content 40%, 380px tall). From `lg`, a sticky right column keeps browse rows from going full-bleed: a photography-led Category panel (lead tile + photo rows) and a Submit a listing card. No map on the browse index.
+**Listing** (`ListingCard`) — whole card is one link to `/listings/[slug]`. Homepage uses the compact card: 3:2 image (~320px wide), 3 / 2 / 1 grid. `/listings` uses `layout="browse"`: stacked 3:2 photo below 768px, then a photo/content row (photo 60% / content 40%, 380px tall). From `lg`, a sticky right column keeps browse rows from going full-bleed: a photography-led Category panel (lead tile + photo rows) and a card inviting a supplier to get in touch. No map on the browse index.
 
 **Listing detail** (`/listings/[slug]`) — Airbnb / LandSale layout using existing data only. Title and location sit above a photo mosaic (hero left, up to four thumbs right from `sm`). Clicking a photo or **Show all photos** / **View photo** opens a dark lightbox: counter, previous/next when there is more than one photo, Escape to close, swipe on a phone. One photo is still a gallery — it opens the viewer so the visitor can see the uncropped image. From `lg`, a sticky enquire card on the right holds price, duration, any current Deal, and contact. Summary, description, vertical details, map (only when coordinates exist), and the Provider block stay on the left. On smaller screens the enquire card sits under the gallery, before the long copy. Do not add reviews, calendars, save/share, or similar-listings carousels.
 
-**Category** (`CategoryCard`) — square photography, dark bottom gradient, white title. Homepage shows at most 5, with no section heading and no View all link. CSS scroll-snap below desktop. One category is a single centred card, not a fake carousel. Image comes from the Category upload, or `BRANDING.media.categoryFallback` if none is set.
+**Category** (`CategoryCard`) — square photography, dark bottom gradient, white title. Homepage shows every Category. Five cards fill the desktop row; further cards scroll sideways with arrow buttons on either side and no scrollbar. Below desktop the next card is cut off and the scrollbar stays hidden. No section heading and no View all link. One category is a single centred card, not a fake carousel. Image comes from the Category upload. With no photograph, the card shows `BRANDING.media.categoryIcon` on a muted background and the title stays dark.
 
 **Article** (`ArticleCard`) — homepage uses the compact card (3:2 image, ~320px). `/articles` uses `layout="browse"`: stacked below 768px, then a photo/content row (60% / 40%, 380px tall) with the same sticky Category rail as `/listings`. 2-line title, excerpt (1 line compact, 2 lines browse), published date. Whole card is one link. Homepage heading is centred with a brand underline on “articles”, no View all. Max 3 on the homepage.
 
-**Article detail** (`/articles/[slug]`) — Etsy Journal / The Modern House layout, not a listing-style sticky enquire column. Kicker (Articles · date), large title, excerpt as a standfirst, then a wide rounded hero if one exists. The Markdown body sits in a centred reading column (`max-w-2xl`). A muted listing band follows: operator-selected **Related Listings** first, filled to three from latest public listings if needed. If none were linked, the heading is **Latest available listings**. No author byline, share bar, comments, reading time, or related-articles carousel.
+**Article detail** (`/articles/[slug]`) — Etsy Journal / The Modern House layout, not a listing-style sticky enquire column. Kicker (Articles · date), large title, then a wide rounded hero if one exists. The hero frame stays wide; the photo is shifted so the subject stays inside it. Under the hero, the Markdown body takes the left two thirds and the three latest active Listings for that Article’s Category take the right third. On smaller screens those Listings sit under the text. An Article with no Category, or a Category with no active Listings, keeps a single centred reading column. The excerpt is not printed under the title. No author byline, share bar, comments, reading time, or related-articles carousel.
 
 ---
 
@@ -93,9 +94,9 @@ Pre-footer Listing CTA
 Dark Footer
 ```
 
-Omit empty optional sections. Latest Listings uses the existing omit-if-empty behaviour. Duplicate Featured/Latest cards are allowed. Proof is four static cards, no database. Homepage context follows the LandSale “trusted platform” layout: centred heading with a brand underline, centred paragraphs, then two white action cards from `config/business.ts`. Blank heading or paragraphs omit the band. Submit a listing goes to `/login`.
+Omit empty optional sections. Latest Listings uses the existing omit-if-empty behaviour. Duplicate Featured/Latest cards are allowed. Proof is four static cards, no database. Each proof card is a small icon, a title, and one sentence from `config/business.ts`. Homepage context follows the LandSale “trusted platform” layout: centred heading with a brand underline, centred paragraphs, then two white action cards from `config/business.ts`. Blank heading or paragraphs omit the band. The closing band invites a supplier to get in touch at `/contact`.
 
-Hero photography: `BRANDING.media.hero`. The photo is an inset rounded tile (same language as listing cards), not a full-bleed cover with a glass dock. The tagline sits bottom-left on a short photographic scrim. One action: Browse Listings. Submit a listing sits in an inset rounded brand panel before the footer, not a full-bleed strip. Categories stay in Explore and the footer. No search.
+Hero photography: `BRANDING.media.hero`. The photo is an inset rounded tile (same language as listing cards), not a full-bleed cover with a glass dock. The tagline sits bottom-left on a short photographic scrim. One action: Browse Listings. A supplier invitation sits in an inset rounded brand panel before the footer, not a full-bleed strip. It links to `/contact`. Categories stay in Explore and the footer. No search.
 
 ---
 

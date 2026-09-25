@@ -1,35 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --brand-primary: #1e293b;
-  --brand-secondary: #64748b;
-  --brand-accent: #0f172a;
-  --brand-primary-hover: color-mix(in srgb, var(--brand-primary) 82%, black);
-  --foreground: var(--brand-primary);
+  --background: #ffffff;
+  --brand-primary: #176b68;
+  --brand-secondary: #10504e;
+  --brand-accent: #dce8e2;
+  --brand-primary-hover: #10504e;
+  --brand-soft: #dce8e2;
+  --foreground: #252a2a;
   --font-heading: var(--font-geist-sans);
   --font-body: var(--font-geist-sans);
-  --public-bg: #fdfdfd;
+  --public-bg: #ffffff;
   --public-surface: #ffffff;
-  --public-muted: #f1f1ef;
-  --public-text: #1a1916;
-  --public-text-muted: #5c5954;
-  --public-text-subtle: #7a776f;
-  --public-border: #e4e0d8;
-  --public-footer: #2f3033;
+  --public-muted: #faf7f2;
+  --public-text: #252a2a;
+  --public-text-muted: #5c6564;
+  --public-text-subtle: #7a8281;
+  --public-border: #e6e2da;
+  --public-footer: #252a2a;
   --radius-button: 8px;
   --radius-card: 12px;
   --radius-panel: 16px;
 
   /* Shared control tokens. Public login/enquiry inherit these light defaults.
      Dashboard overrides them under .dashboard so dark mode cannot leak. */
-  --dash-bg: #f8fafc;
-  --dash-fg: #0f172a;
+  --dash-bg: #ffffff;
+  --dash-fg: #252a2a;
   --dash-card: #ffffff;
-  --dash-muted: #f1f5f9;
-  --dash-muted-fg: #475569;
-  --dash-subtle-fg: #64748b;
-  --dash-border: #e2e8f0;
+  --dash-muted: #faf7f2;
+  --dash-muted-fg: #5c6564;
+  --dash-subtle-fg: #7a8281;
+  --dash-border: #e6e2da;
   --dash-input: #ffffff;
   --dash-primary: var(--brand-primary);
   --dash-primary-fg: #ffffff;
@@ -45,13 +46,13 @@
 }
 
 .dashboard {
-  --dash-bg: #f3f2ef;
-  --dash-fg: #1a1916;
+  --dash-bg: #f7f5f2;
+  --dash-fg: #252a2a;
   --dash-card: #ffffff;
-  --dash-muted: #eceae6;
-  --dash-muted-fg: #5c5954;
-  --dash-subtle-fg: #7a776f;
-  --dash-border: #e0dcd4;
+  --dash-muted: #f3efe8;
+  --dash-muted-fg: #5c6564;
+  --dash-subtle-fg: #7a8281;
+  --dash-border: #e6e2da;
   --dash-input: #ffffff;
   --dash-primary: var(--brand-primary);
   --dash-primary-fg: #ffffff;
@@ -64,11 +65,11 @@
   --dash-warning-bg: color-mix(in srgb, var(--dash-warning) 12%, white);
   --dash-info: #175cd3;
   --dash-info-bg: color-mix(in srgb, var(--dash-info) 10%, white);
-  --dash-sidebar: color-mix(in srgb, var(--brand-primary) 58%, #1a1916);
+  --dash-sidebar: #252a2a;
   --dash-sidebar-fg: #f5f4f1;
   --dash-sidebar-muted: color-mix(in srgb, var(--dash-sidebar-fg) 68%, transparent);
   --dash-sidebar-hover: color-mix(in srgb, white 8%, transparent);
-  --dash-sidebar-active: color-mix(in srgb, white 13%, transparent);
+  --dash-sidebar-active: color-mix(in srgb, #176b68 42%, #252a2a);
   --dash-sidebar-border: color-mix(in srgb, white 10%, transparent);
   color: var(--dash-fg);
   background: var(--dash-bg);
@@ -101,7 +102,7 @@ html[data-dash-theme="dark"] .dashboard {
   --dash-sidebar-fg: #f2f0eb;
   --dash-sidebar-muted: color-mix(in srgb, var(--dash-sidebar-fg) 64%, transparent);
   --dash-sidebar-hover: color-mix(in srgb, white 7%, transparent);
-  --dash-sidebar-active: color-mix(in srgb, white 12%, transparent);
+  --dash-sidebar-active: color-mix(in srgb, #176b68 45%, #161513);
   --dash-sidebar-border: color-mix(in srgb, white 8%, transparent);
   color-scheme: dark;
 }
@@ -142,4 +143,12 @@ h6 {
   .public-media-zoom {
     transform: none !important;
   }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

@@ -23,13 +23,13 @@ export default async function CategoriesIndexPage() {
       <h1 className="text-3xl font-semibold tracking-tight">
         {TERMINOLOGY.category.plural}
       </h1>
-      <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+      <p className="mt-3 max-w-2xl text-base leading-7 text-(--public-text-muted)">
         Browse the main areas of this marketplace. Open a Category to see its
         Listings.
       </p>
 
       {categories.length === 0 ? (
-        <p className="mt-10 text-sm text-slate-600">
+        <p className="mt-10 text-sm text-(--public-text-muted)">
           Categories will appear here as they are added.
         </p>
       ) : (

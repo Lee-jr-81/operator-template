@@ -40,7 +40,7 @@ export default async function EditDealPage({
         <p className="text-sm">
           <Link
             href="/dashboard/deals"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Deals
           </Link>
@@ -55,7 +55,7 @@ export default async function EditDealPage({
         <div className="mt-3 flex flex-wrap gap-4">
           <Link
             href={`/dashboard/deals/${deal.id}/promote`}
-            className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+            className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Promote Deal
           </Link>

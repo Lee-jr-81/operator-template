@@ -81,6 +81,8 @@ describe("public article projection", () => {
       excerpt: "A practical checklist for choosing a provider.",
       published_at: "2026-08-21T12:00:00.000Z",
       hero_image_url: null,
+      hero_focal_x: null,
+      hero_focal_y: null,
     };
 
     expect(card).not.toHaveProperty("status");

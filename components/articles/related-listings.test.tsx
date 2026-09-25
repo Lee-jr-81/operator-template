@@ -25,24 +25,31 @@ const listing: PublicListingCard = {
 describe("RelatedListings", () => {
   it("renders nothing when there are no cards to show", () => {
     const { container } = render(
-      <RelatedListings listings={[]} heading="Related Listings" />,
+      <RelatedListings listings={[]} heading="Latest Walking listings" />,
     );
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders the supplied heading when cards exist", () => {
+  it("renders a compact list and a category link", () => {
     render(
-      <RelatedListings listings={[listing]} heading="Related Listings" />,
+      <RelatedListings
+        listings={[listing]}
+        heading="Latest Walking listings"
+        categoryHref="/categories/walking"
+      />,
     );
 
     expect(
-      screen.getByRole("heading", { name: "Related Listings" }),
+      screen.getByRole("heading", { name: "Latest Walking listings" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("region", { name: "Related Listings" })).toHaveClass(
-      "bg-(--public-muted)",
-    );
     expect(
       screen.getByRole("link", { name: "Sample Listing" }),
     ).toHaveAttribute("href", "/listings/sample-listing");
+    expect(screen.getByText("Standard · 60 minutes · From 12")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View the category" })).toHaveAttribute(
+      "href",
+      "/categories/walking",
+    );
+    expect(screen.getByRole("complementary")).not.toHaveClass("sticky");
   });
 });

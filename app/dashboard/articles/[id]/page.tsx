@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ArticleForm } from "@/app/dashboard/articles/article-form";
 import { ArticleHeroPanel } from "@/app/dashboard/articles/hero-panel";
 import { OriginalityPanel } from "@/app/dashboard/articles/originality-panel";
-import { RelatedListingsPanel } from "@/app/dashboard/articles/related-listings-panel";
 import { ArticleStatusBanner } from "@/app/dashboard/articles/status-banner";
 import { Card } from "@/components/ui/card";
 import { canPromoteArticle } from "@/lib/articles/promotion-templates";
@@ -12,8 +11,7 @@ import {
   getArticleById,
   getArticleHeroPublicUrl,
 } from "@/server/articles/queries";
-import { listArticleRelatedListings } from "@/server/articles/related-queries";
-import { listOperatorListings } from "@/server/listings/queries";
+import { listCategories } from "@/server/categories/queries";
 
 export const metadata: Metadata = {
   title: "Edit Article",
@@ -28,10 +26,9 @@ export default async function EditArticlePage({
 }) {
   const { id } = await params;
   const { status } = await searchParams;
-  const [article, selected, listings] = await Promise.all([
+  const [article, categories] = await Promise.all([
     getArticleById(id),
-    listArticleRelatedListings(id),
-    listOperatorListings(),
+    listCategories(),
   ]);
 
   if (!article) {
@@ -44,7 +41,7 @@ export default async function EditArticlePage({
         <p className="text-sm">
           <Link
             href="/dashboard/articles"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Articles
           </Link>
@@ -60,13 +57,13 @@ export default async function EditArticlePage({
           <div className="mt-3 flex flex-wrap gap-4">
             <Link
               href={`/articles/${article.slug}`}
-              className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+              className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
             >
               View public Article
             </Link>
             <Link
               href={`/dashboard/articles/${article.id}/promote`}
-              className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+              className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
             >
               Promote Article
             </Link>
@@ -82,20 +79,15 @@ export default async function EditArticlePage({
               ? getArticleHeroPublicUrl(article.hero_image_path)
               : null
           }
+          focalX={article.hero_focal_x}
+          focalY={article.hero_focal_y}
         />
       </Card>
       <Card className="max-w-4xl">
         <OriginalityPanel />
       </Card>
       <Card className="max-w-4xl">
-        <RelatedListingsPanel
-          articleId={article.id}
-          selected={selected}
-          listings={listings}
-        />
-      </Card>
-      <Card className="max-w-4xl">
-        <ArticleForm article={article} />
+        <ArticleForm article={article} categories={categories} />
       </Card>
     </div>
   );

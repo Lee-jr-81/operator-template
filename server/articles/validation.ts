@@ -3,6 +3,7 @@ import {
   resolvePublishedAt,
   type ArticleStatus,
 } from "@/lib/articles/status";
+import { isUuid } from "@/lib/uuid";
 import {
   ARTICLE_BODY_MAX,
   ARTICLE_EXCERPT_MAX,
@@ -42,6 +43,7 @@ export function parseArticleInput(
     published_at: string;
     seo_title: string;
     seo_description: string;
+    category_id?: string;
   },
   existing?: {
     status: ArticleStatus;
@@ -53,6 +55,7 @@ export function parseArticleInput(
   const body = raw.body.trim();
   const seoTitle = raw.seo_title.trim();
   const seoDescription = raw.seo_description.trim();
+  const categoryId = raw.category_id?.trim() ?? "";
   const slug = generateArticleSlug(raw.slug) || generateArticleSlug(title);
   const publishedAt = parseTimestamp(raw.published_at);
   const fieldErrors: ArticleFieldErrors = {};
@@ -99,6 +102,10 @@ export function parseArticleInput(
     fieldErrors.seo_description = `Use ${ARTICLE_SEO_DESCRIPTION_MAX} characters or fewer.`;
   }
 
+  if (categoryId && !isUuid(categoryId)) {
+    fieldErrors.category_id = "Choose a Category from the list.";
+  }
+
   if (hasArticleFieldErrors(fieldErrors) || !isArticleStatus(raw.status)) {
     return { fieldErrors };
   }
@@ -119,6 +126,7 @@ export function parseArticleInput(
       }),
       seo_title: seoTitle,
       seo_description: seoDescription,
+      category_id: categoryId || null,
     },
   };
 }

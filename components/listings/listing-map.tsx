@@ -43,18 +43,18 @@ function createPopupElement(marker: ListingMapMarker) {
   title.href = `/listings/${marker.slug}`;
   title.textContent = marker.title;
   title.className =
-    "font-medium text-slate-900 underline-offset-4 hover:underline";
+    "font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline";
   root.append(title);
 
   const entity = document.createElement("p");
   entity.textContent = marker.entityName;
-  entity.className = "mt-1 text-sm text-slate-600";
+  entity.className = "mt-1 text-sm text-(--public-text-muted)";
   root.append(entity);
 
   if (marker.locationLabel) {
     const location = document.createElement("p");
     location.textContent = marker.locationLabel;
-    location.className = "mt-1 text-sm text-slate-600";
+    location.className = "mt-1 text-sm text-(--public-text-muted)";
     root.append(location);
   }
 

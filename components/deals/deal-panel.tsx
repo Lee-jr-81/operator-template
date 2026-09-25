@@ -7,20 +7,20 @@ export function DealPanel({ deal }: { deal: PublicDeal }) {
       <p className="text-xs font-semibold uppercase tracking-wide text-amber-900">
         Special offer
       </p>
-      <p className="mt-2 text-xl font-semibold tracking-tight text-slate-900">
+      <p className="mt-2 text-xl font-semibold tracking-tight text-(--public-text)">
         {deal.headline}
       </p>
-      <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700">
+      <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-(--public-text-muted)">
         {deal.description}
       </p>
       {deal.promo_code ? (
-        <p className="mt-4 text-sm text-slate-800">
+        <p className="mt-4 text-sm text-(--public-text)">
           Quote{" "}
           <span className="font-semibold tracking-wide">{deal.promo_code}</span>{" "}
           when booking.
         </p>
       ) : null}
-      <p className="mt-3 text-sm text-slate-600">
+      <p className="mt-3 text-sm text-(--public-text-muted)">
         Expires {formatDealExpiry(deal.expires_at)}
       </p>
     </div>

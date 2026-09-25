@@ -24,13 +24,13 @@ export default async function ArticlesIndexPage() {
   return (
     <Container className="py-12 sm:py-16">
       <h1 className="text-3xl font-semibold tracking-tight">Articles</h1>
-      <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+      <p className="mt-3 max-w-2xl text-base leading-7 text-(--public-text-muted)">
         Useful reading about this marketplace. Only published Articles appear
         here.
       </p>
 
       {articles.length === 0 ? (
-        <p className="mt-10 text-sm text-slate-600">
+        <p className="mt-10 text-sm text-(--public-text-muted)">
           Articles will appear here as they are published.
         </p>
       ) : (

@@ -13,10 +13,10 @@ export function ListingMapPanel({
   if (markers.length === 0) {
     return (
       <div
-        className={`flex ${heightClass} flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 px-6 py-8`}
+        className={`flex ${heightClass} flex-col justify-center rounded-lg border border-(--public-border) bg-(--public-muted) px-6 py-8`}
       >
-        <p className="font-medium text-slate-900">No mapped locations yet</p>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="font-medium text-(--public-text)">No mapped locations yet</p>
+        <p className="mt-2 text-sm leading-6 text-(--public-text-muted)">
           Listings without coordinates are still shown in the results.
         </p>
       </div>

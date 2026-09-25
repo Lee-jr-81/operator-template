@@ -67,7 +67,7 @@ export default async function EnquiryDetailPage({
         <p className="text-sm">
           <Link
             href="/dashboard/enquiries"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Enquiries
           </Link>
@@ -92,7 +92,7 @@ export default async function EnquiryDetailPage({
               <dd>
                 <a
                   href={mailto}
-                  className="font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+                  className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
                 >
                   {enquiry.email}
                 </a>
@@ -105,7 +105,7 @@ export default async function EnquiryDetailPage({
                   {tel ? (
                     <a
                       href={tel}
-                      className="font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+                      className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
                     >
                       {enquiry.phone}
                     </a>
@@ -161,14 +161,14 @@ export default async function EnquiryDetailPage({
           <p className="mt-3 flex flex-wrap gap-4">
             <Link
               href={`/dashboard/listings/${enquiry.listing_id}`}
-              className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+              className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
             >
               Open in dashboard
             </Link>
             {enquiry.listing_slug && enquiry.listing_status === "active" ? (
               <Link
                 href={`/listings/${enquiry.listing_slug}`}
-                className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+                className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
               >
                 View public Listing
               </Link>

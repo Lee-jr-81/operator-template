@@ -19,13 +19,13 @@ Pre-footer listing CTA
 Dark Footer
 ```
 
-CTAs only go to existing routes: `/listings`, `/categories`, `/articles`, `/login`. There is no public listing-submission form.
+CTAs only go to existing routes: `/listings`, `/categories`, `/articles`, `/contact`, and `/login` (operator login, in the footer). The closing homepage band and the listings-aside card invite a supplier via `/contact`. They do not open the dashboard.
 
 Limits live in `lib/homepage/limits.ts`. Selection helpers live in `lib/homepage/selection.ts`. Homepage context copy lives in `config/business.ts`. Queries stay in the domain modules (`server/categories`, `server/listings`, `server/articles`). Visual rules live in `docs/design/public-design-system.md`.
 
 ## Categories
 
-Show Categories that currently have at least one public Listing (`status = active`). Sorted by name. Fetch 6, show 5. No section heading and no View all link; `/categories` remains in the footer. Category cards use `categories.image_path` when present, otherwise `BRANDING.media.categoryFallback`.
+Show every Category, sorted by name, including Categories that do not yet have a public Listing. This list is for the homepage row only. Listings and Articles browse filters still list Categories that have at least one active Listing. No section heading and no View all link; `/categories` remains in the footer. Five cards fill the desktop row. Further cards stay in that row and scroll. Category cards use `categories.image_path` when present, otherwise `BRANDING.media.categoryIcon`.
 
 Do not cache Listing counts on Category rows.
 

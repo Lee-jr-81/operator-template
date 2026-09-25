@@ -4,19 +4,21 @@ import { AiWritingHelper } from "@/app/dashboard/articles/ai-writing-helper";
 import { ArticleForm } from "@/app/dashboard/articles/article-form";
 import { OriginalityPanel } from "@/app/dashboard/articles/originality-panel";
 import { Card } from "@/components/ui/card";
+import { listCategories } from "@/server/categories/queries";
 
 export const metadata: Metadata = {
   title: "Create Article",
 };
 
-export default function NewArticlePage() {
+export default async function NewArticlePage() {
+  const categories = await listCategories();
   return (
     <div className="space-y-6">
       <div>
         <p className="text-sm">
           <Link
             href="/dashboard/articles"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Articles
           </Link>
@@ -39,7 +41,7 @@ export default function NewArticlePage() {
       </Card>
 
       <Card className="max-w-4xl">
-        <ArticleForm />
+        <ArticleForm categories={categories} />
       </Card>
     </div>
   );

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CoverImage } from "@/components/media/cover-image";
 import { formatArticlePublishedDate } from "@/lib/articles/format";
 import { cn } from "@/lib/cn";
 import { mediaZoomClass } from "@/lib/public-layout";
@@ -35,16 +35,17 @@ export function ArticleCard({
           )}
         >
           {article.hero_image_url ? (
-            <Image
+            <CoverImage
               src={article.hero_image_url}
               alt=""
-              fill
               sizes={
                 isBrowse
                   ? "(max-width: 768px) 100vw, 60vw"
                   : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               }
               className={mediaZoomClass()}
+              focalX={article.hero_focal_x}
+              focalY={article.hero_focal_y}
             />
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-(--public-text-subtle)">

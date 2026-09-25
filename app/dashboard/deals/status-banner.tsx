@@ -40,7 +40,7 @@ export function DealCreatedPromoteLink({ dealId }: { dealId: string }) {
     <p className="text-sm">
       <Link
         href={`/dashboard/deals/${dealId}/promote`}
-        className="font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+        className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
       >
         Promote Deal
       </Link>

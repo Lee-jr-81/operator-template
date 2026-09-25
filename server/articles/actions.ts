@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { requireOperator } from "@/lib/auth/operator";
 import { deleteArticleHeroFiles } from "@/server/articles/hero-queries";
+import { getCategoryById } from "@/server/categories/queries";
 import {
   deleteArticleRecord,
   getArticleById,
@@ -32,6 +33,7 @@ function readArticleForm(formData: FormData) {
     published_at: String(formData.get("published_at") ?? ""),
     seo_title: String(formData.get("seo_title") ?? ""),
     seo_description: String(formData.get("seo_description") ?? ""),
+    category_id: String(formData.get("category_id") ?? ""),
   };
 }
 
@@ -56,6 +58,13 @@ export async function createArticle(
   const parsed = parseArticleInput(readArticleForm(formData));
   if ("fieldErrors" in parsed) {
     return { fieldErrors: parsed.fieldErrors };
+  }
+
+  if (parsed.data.category_id) {
+    const category = await getCategoryById(parsed.data.category_id);
+    if (!category) {
+      return { fieldErrors: { category_id: "Choose a Category from the list." } };
+    }
   }
 
   const { data, error } = await insertArticle(parsed.data);
@@ -95,6 +104,13 @@ export async function updateArticle(
 
   if ("fieldErrors" in parsed) {
     return { fieldErrors: parsed.fieldErrors };
+  }
+
+  if (parsed.data.category_id) {
+    const category = await getCategoryById(parsed.data.category_id);
+    if (!category) {
+      return { fieldErrors: { category_id: "Choose a Category from the list." } };
+    }
   }
 
   const { error } = await updateArticleRecord(id, parsed.data);

@@ -12,6 +12,7 @@ import {
 } from "@/server/articles/hero-queries";
 import {
   getArticleById,
+  updateArticleHeroFocal,
   updateArticleHeroPath,
 } from "@/server/articles/queries";
 
@@ -120,4 +121,43 @@ export async function removeArticleHero(formData: FormData) {
   }
 
   redirect(editPath(articleId, "hero-removed"));
+}
+
+function readFocalPoint(value: number | null) {
+  if (value === null) {
+    return null;
+  }
+
+  if (!Number.isInteger(value) || value < 0 || value > 100) {
+    return undefined;
+  }
+
+  return value;
+}
+
+export async function updateArticleHeroCrop(
+  articleId: string,
+  focalX: number | null,
+  focalY: number | null,
+) {
+  await requireOperator();
+
+  const x = readFocalPoint(focalX);
+  const y = readFocalPoint(focalY);
+  if (x === undefined || y === undefined || (x === null) !== (y === null)) {
+    return { formError: "That crop could not be saved." };
+  }
+
+  const article = articleId ? await getArticleById(articleId) : null;
+  if (!article) {
+    return { formError: "That Article could not be found." };
+  }
+
+  const { error } = await updateArticleHeroFocal(articleId, x, y);
+  if (error) {
+    console.error("Failed to save article hero crop", { code: error.code });
+    return { formError: "The crop could not be saved. Please try again." };
+  }
+
+  return null;
 }

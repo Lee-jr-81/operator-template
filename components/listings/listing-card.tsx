@@ -96,7 +96,7 @@ export function ListingCard({
               {formatAddedOn(listing.created_at)}
             </p>
             <div className="mt-2 flex items-center justify-between gap-2">
-              <p className="min-w-0 max-w-[70%] truncate rounded-md bg-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] px-2.5 py-1 text-xs font-regular text-(--public-text)">
+              <p className="min-w-0 max-w-[70%] truncate rounded-md bg-(--brand-soft) px-2.5 py-1 text-xs font-regular text-(--brand-secondary)">
                 {listing.entity_name}
               </p>
               {listing.entity_location ? (

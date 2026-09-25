@@ -27,13 +27,13 @@ export default async function ListingsIndexPage() {
       <h1 className="text-3xl font-semibold tracking-tight">
         {TERMINOLOGY.listing.plural}
       </h1>
-      <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+      <p className="mt-3 max-w-2xl text-base leading-7 text-(--public-text-muted)">
         Browse what is currently available. Each Listing belongs to a Category
         and is provided by an Entity.
       </p>
 
       {listings.length === 0 ? (
-        <p className="mt-10 text-sm text-slate-600">
+        <p className="mt-10 text-sm text-(--public-text-muted)">
           Listings will appear here as they are published.
         </p>
       ) : (

@@ -13,7 +13,7 @@ const shared =
 export const buttonClass: Record<ButtonVariant, string> = {
   primary: cn(
     shared,
-    "bg-(--dash-primary) text-(--dash-primary-fg) hover:opacity-90",
+    "bg-(--dash-primary) text-(--dash-primary-fg) hover:bg-(--brand-primary-hover)",
   ),
   secondary: cn(
     shared,

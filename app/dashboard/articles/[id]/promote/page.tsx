@@ -44,7 +44,7 @@ export default async function PromoteArticlePage({
         <p className="text-sm">
           <Link
             href={`/dashboard/articles/${article.id}`}
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Article
           </Link>
@@ -62,7 +62,7 @@ export default async function PromoteArticlePage({
         <p className="mt-2">
           <Link
             href={`/articles/${article.slug}`}
-            className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+            className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             View public Article
           </Link>

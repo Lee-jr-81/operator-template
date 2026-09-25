@@ -11,12 +11,12 @@ export const BRANDING = {
   },
   media: {
     hero: "/brand/hero.jpg",
-    categoryFallback: "/brand/category-fallback.jpg",
+    categoryIcon: "/brand/mark.svg",
   },
   colours: {
-    primary: "#1e293b",
-    secondary: "#64748b",
-    accent: "#0f172a",
+    primary: "#176B68",
+    secondary: "#10504E",
+    accent: "#DCE8E2",
   },
   typography: {
     heading: "Geist",

@@ -3,7 +3,7 @@ import { isPubliclyVisibleListing } from "@/server/listings/status";
 import type { Category } from "@/server/categories/types";
 
 export const PUBLIC_ARTICLE_CARD_COLUMNS =
-  "id, title, slug, excerpt, hero_image_path, status, published_at" as const;
+  "id, title, slug, excerpt, hero_image_path, hero_focal_x, hero_focal_y, status, published_at" as const;
 
 export function isPublicFeaturedListing(listing: {
   status: string;

@@ -34,7 +34,7 @@ Native form controls follow `color-scheme` on `.dashboard`.
 
 ## Shell
 
-- Dark brand-derived sidebar, ~248px, fixed. Logo: `BRANDING.logo.onDark`.
+- Charcoal sidebar (`#252A2A`), ~248px, fixed. The active item uses a teal tint and soft-coloured text. Logo: `BRANDING.logo.onDark`. Dark mode sidebar stays near-black (`#161513`) with the same kind of tint on the active item.
 - Sticky top bar ~64px: return to site, mobile menu, sun/moon theme toggle, user icon + email.
 - Sign out sits at the bottom of the sidebar.
 - Content: fluid up to 1600px. Padding 32 / 24 / 16.

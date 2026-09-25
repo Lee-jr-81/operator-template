@@ -103,7 +103,7 @@ Images belong to a Listing through `listing_media`, not columns on `listings`.
 
 ## Category images
 
-A Category has one photograph. Path is `categories.image_path`. Storage bucket: `category-media`, path `{categoryId}/{mediaId}.{jpg|png|webp}`. The operator uploads it on the create form. The same file is the public card image and can later be the Category page hero. Categories without an upload use `BRANDING.media.categoryFallback`.
+A Category has one photograph. Path is `categories.image_path`. Storage bucket: `category-media`, path `{categoryId}/{mediaId}.{jpg|png|webp}`. The operator uploads it on the create form. The same file is the public card image and can later be the Category page hero. Categories without an upload show `BRANDING.media.categoryIcon`.
 
 ## Public map
 
@@ -155,7 +155,7 @@ Body is Markdown, sanitized before HTML is rendered. One optional hero image liv
 
 Create Article is the Markdown form, plus an optional AI Writing Helper. The helper copies a local prompt to the clipboard; OperatorTemplate does not call an AI API. The operator pastes returned sections by hand and adds original material before publishing. There is no Guided writing mode and no template table.
 
-Published Article detail can show operator-selected **Related Listings**. The junction table is `article_listings`. Public eligibility is still the Listing’s own active rule. Listing pages do not show Related Articles yet.
+Published Article detail shows the three latest active Listings for the Article’s Category when one is set. The `article_listings` table remains, and the dashboard does not ask the operator to pick Listings by hand. Listing pages do not show Related Articles yet.
 
 Published Articles can be promoted with deterministic Facebook, Instagram, LinkedIn, and X drafts built from title, excerpt, and the public URL. Copy is not stored and is not posted anywhere. The standing CMS reference is `docs/architecture/cms.md`.
 

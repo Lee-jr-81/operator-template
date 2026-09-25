@@ -57,8 +57,7 @@ function readImageFile(formData: FormData, field = "image") {
   return file;
 }
 
-export async function uploadListingMedia(
-  _previousState: ListingMediaFormState,
+export async function storeListingMedia(
   formData: FormData,
 ): Promise<ListingMediaFormState> {
   await requireOperator();
@@ -117,7 +116,19 @@ export async function uploadListingMedia(
     return { formError: "The image could not be saved. Please try again." };
   }
 
-  redirect(editPath(listingId, "media-added"));
+  return null;
+}
+
+export async function uploadListingMedia(
+  _previousState: ListingMediaFormState,
+  formData: FormData,
+): Promise<ListingMediaFormState> {
+  const result = await storeListingMedia(formData);
+  if (result?.formError) {
+    return result;
+  }
+
+  redirect(editPath(String(formData.get("listing_id") ?? ""), "media-added"));
 }
 
 export async function updateListingMediaAltText(formData: FormData) {

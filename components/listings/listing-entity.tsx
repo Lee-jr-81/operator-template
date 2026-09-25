@@ -23,7 +23,7 @@ export function ListingEntityBlock({ entity }: { entity: PublicEntity }) {
           />
         ) : null}
         <div className="min-w-0">
-          <p className="font-medium text-(--public-text)">{entity.name}</p>
+          <p className="font-medium text-(--brand-primary)">{entity.name}</p>
           {locationLabel ? (
             <p className="mt-1 text-sm text-(--public-text-muted)">{locationLabel}</p>
           ) : null}
@@ -42,7 +42,7 @@ export function ListingEntityBlock({ entity }: { entity: PublicEntity }) {
             <li>
               <a
                 href={entity.website_url}
-                className="underline-offset-4 hover:underline"
+                className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
               >
                 {entity.website_url}
               </a>

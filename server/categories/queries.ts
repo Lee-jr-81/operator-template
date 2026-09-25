@@ -30,6 +30,20 @@ export async function listCategories() {
   return (data ?? []) as Category[];
 }
 
+export async function listPublicCategories() {
+  const categories = await listCategories();
+
+  return categories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    slug: category.slug,
+    description: category.description,
+    imageUrl: category.image_path
+      ? getCategoryImagePublicUrl(category.image_path)
+      : null,
+  }));
+}
+
 export async function listPublicHomepageCategories(limit: number) {
   const supabase = await createClient();
   const { data, error } = await supabase

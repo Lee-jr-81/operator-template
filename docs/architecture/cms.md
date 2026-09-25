@@ -57,7 +57,9 @@ Do not introduce a WYSIWYG or block editor unless a later slice has a real reaso
 
 One optional image per Article. Path is `articles.hero_image_path`. Storage bucket: `article-media`, path `{articleId}/{mediaId}.{jpg|png|webp}`.
 
-JPEG, PNG, or WebP, up to 5MB — the same limit as Listing images. This is not a gallery and not a shared media library. Replacing or deleting the Article removes the old Storage object when practical.
+JPEG, PNG, or WebP. Large photos are reduced in the browser before upload. The server still rejects a file over 5MB. This is not a gallery and not a shared media library. Replacing or deleting the Article removes the old Storage object when practical.
+
+The operator can drag the hero inside its existing frame. The saved point is `hero_focal_x` and `hero_focal_y` (both null, or both 0–100). Null means the page chooses a point from the photo. Replacing or removing the hero clears that point. The same point is used on the public hero and on Article cards.
 
 Hero upload stays on the edit screen after the Article exists.
 
@@ -78,7 +80,7 @@ Canonical URL is `/articles/{slug}`. Advanced Open Graph and structured data bel
 | `/articles/[slug]` | One published Article, or 404 |
 | `/dashboard/articles` | Operator list |
 | `/dashboard/articles/new` | Create |
-| `/dashboard/articles/[id]` | Edit, hero image, related Listings, publish |
+| `/dashboard/articles/[id]` | Edit, hero image and crop, Category, publish |
 | `/dashboard/articles/[id]/promote` | Promote published Article |
 | `/dashboard/articles/[id]/delete` | Confirmed delete |
 
@@ -126,23 +128,11 @@ The panel appears on create and on edit, because edit is where the operator revi
 
 ## Related Listings
 
-Articles can point at marketplace Listings through an explicit junction table:
+`article_listings` remains in the database. The dashboard no longer asks the operator to pick Listings for an Article.
 
-```text
-article_listings
-  article_id
-  listing_id
-  sort_order
-  created_at
-```
+If the Article has a Category, the public page shows the three latest active Listings in that Category (newest `created_at`). Inactive Listings stay off the page. An Article with no Category has no Listing column. The Article index, Listing pages, and homepage do not show this column.
 
-The relationship is many-to-many and editorial. The operator chooses Listings on `/dashboard/articles/[id]`. OperatorTemplate does not infer matches from Category, keywords, Entity, geography, or AI.
-
-Public Article detail (`/articles/[slug]`) may show a listing band after the body. Operator-selected **Related Listings** appear first, in dashboard order, using the same public Listing eligibility (`status = active`). If the operator linked none, or fewer than three remain public, the band fills from the latest public Listings. An empty fallback is labelled **Latest available listings**, not Related Listings. OperatorTemplate still does not infer matches from Category, keywords, Entity, geography, or AI. The Article index, Listing detail pages, and homepage do not show this relationship.
-
-A linked inactive Listing stays in `article_listings` so the operator can prepare content in advance. It is omitted from the public section until the Listing is active again. Deleting an Article or Listing cascades the junction rows. Removing a relationship never deletes the Article or Listing.
-
-The Article body is not rewritten when relationships change. There is no Article ↔ Deal or Article ↔ Entity table. Current Deals still appear through the Listing card.
+The operator chooses the Category on the Article form. Leave it blank when the Article is not a Category guide.
 
 ## Social promotion
 

@@ -11,7 +11,6 @@ import { BUSINESS } from "@/config/business";
 import { TERMINOLOGY } from "@/config/terminology";
 import {
   HOMEPAGE_ARTICLE_LIMIT,
-  HOMEPAGE_CATEGORY_LIMIT,
   HOMEPAGE_FEATURED_LIMIT,
   HOMEPAGE_RECENT_LIMIT,
 } from "@/lib/homepage/limits";
@@ -20,7 +19,7 @@ import {
   publicSectionClass,
 } from "@/lib/public-layout";
 import { listLatestPublicArticles } from "@/server/articles/queries";
-import { listPublicHomepageCategories } from "@/server/categories/queries";
+import { listPublicCategories } from "@/server/categories/queries";
 import {
   listPublicFeaturedListingCards,
   listPublicRecentListingCards,
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [categories, featured, recent, articles] = await Promise.all([
-    listPublicHomepageCategories(HOMEPAGE_CATEGORY_LIMIT),
+    listPublicCategories(),
     listPublicFeaturedListingCards(HOMEPAGE_FEATURED_LIMIT),
     listPublicRecentListingCards(HOMEPAGE_RECENT_LIMIT),
     listLatestPublicArticles(HOMEPAGE_ARTICLE_LIMIT),

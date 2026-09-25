@@ -22,7 +22,8 @@ describe("ListingsBrowseAside", () => {
       screen.queryByRole("link", { name: /all categories/i }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Submit a listing" }),
-    ).toHaveAttribute("href", "/login");
+      screen.getByRole("link", { name: "Get in touch" }),
+    ).toHaveAttribute("href", "/contact");
+    expect(screen.queryByRole("link", { name: "Submit a listing" })).not.toBeInTheDocument();
   });
 });

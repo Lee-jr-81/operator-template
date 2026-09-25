@@ -46,7 +46,7 @@ export default async function PromoteDealPage({
         <p className="text-sm">
           <Link
             href={`/dashboard/deals/${context.deal.id}`}
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to Deal
           </Link>

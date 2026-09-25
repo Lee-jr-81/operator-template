@@ -8,10 +8,13 @@ export type Article = {
   excerpt: string;
   body: string;
   hero_image_path: string | null;
+  hero_focal_x: number | null;
+  hero_focal_y: number | null;
   status: ArticleStatus;
   published_at: string | null;
   seo_title: string;
   seo_description: string;
+  category_id: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -25,6 +28,7 @@ export type ArticleInput = {
   published_at: string | null;
   seo_title: string;
   seo_description: string;
+  category_id: string | null;
 };
 
 export type ArticleListItem = {
@@ -43,6 +47,8 @@ export type PublicArticleCard = {
   excerpt: string;
   published_at: string;
   hero_image_url: string | null;
+  hero_focal_x: number | null;
+  hero_focal_y: number | null;
 };
 
 export type PublicArticle = {
@@ -55,6 +61,9 @@ export type PublicArticle = {
   seo_title: string;
   seo_description: string;
   hero_image_url: string | null;
+  hero_focal_x: number | null;
+  hero_focal_y: number | null;
+  category_id: string | null;
 };
 
 export type ArticleFieldErrors = {
@@ -66,6 +75,7 @@ export type ArticleFieldErrors = {
   published_at?: string;
   seo_title?: string;
   seo_description?: string;
+  category_id?: string;
 };
 
 export type ArticleListing = {

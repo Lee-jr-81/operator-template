@@ -99,7 +99,7 @@ Standing references: `docs/architecture/contact.md`, `docs/architecture/enquirie
 
 - Markdown body, draft/published
 - AI Writing Helper copies a prompt; OperatorTemplate never calls an AI API
-- Related Listings are operator-selected
+- The public Article shows the three latest active Listings for its Category
 - Social promotion drafts are clipboard copy, not posting
 - Public label can become Guides / Journal in the clone
 

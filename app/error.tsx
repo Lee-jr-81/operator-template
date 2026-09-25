@@ -19,7 +19,7 @@ export default function ErrorPage({
       <h1 className="text-xl font-semibold tracking-tight">
         Something went wrong
       </h1>
-      <p className="mt-2 text-sm text-slate-600">
+      <p className="mt-2 text-sm text-(--public-text-muted)">
         Please try again. If the problem continues, contact the developer.
       </p>
       <p className="mt-6">

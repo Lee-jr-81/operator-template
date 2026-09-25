@@ -1,10 +1,14 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { PublicShell } from "@/components/public/public-shell";
 import { BUSINESS } from "@/config/business";
 import { TERMINOLOGY } from "@/config/terminology";
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => null,
+}));
 
 describe("PublicShell", () => {
   it("shows configured business identity and terminology in chrome", () => {
@@ -25,6 +29,13 @@ describe("PublicShell", () => {
       headerNav.querySelector(`a[href="/categories"]`),
     ).toBeNull();
     expect(screen.getByText(BUSINESS.tagline)).toBeInTheDocument();
+    expect(
+      screen.getByRole("navigation", { name: "Public" }).querySelector('a[href="/login"]'),
+    ).toBeNull();
+    expect(screen.getByRole("link", { name: "Operator login" })).toHaveAttribute(
+      "href",
+      "/login",
+    );
     expect(
       screen.getByText(`© ${new Date().getFullYear()} ${BUSINESS.name}`),
     ).toBeInTheDocument();

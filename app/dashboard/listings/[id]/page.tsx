@@ -46,7 +46,7 @@ export default async function EditListingPage({
         <p className="text-sm">
           <Link
             href="/dashboard/listings"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to {TERMINOLOGY.listing.plural}
           </Link>
@@ -62,7 +62,7 @@ export default async function EditListingPage({
         <div className="mt-3">
           <DuplicateListingButton
             listingId={listing.id}
-            className="text-sm font-medium text-(--dash-fg) underline-offset-4 hover:underline"
+            className="text-sm font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           />
         </div>
       </div>

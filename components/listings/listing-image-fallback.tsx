@@ -10,7 +10,7 @@ export function ListingImageFallback({
   return (
     <div
       className={cn(
-        "flex aspect-4/3 items-center justify-center bg-slate-100 text-sm text-slate-500",
+        "flex aspect-4/3 items-center justify-center bg-(--public-muted) text-sm text-(--public-text-subtle)",
         className,
       )}
     >

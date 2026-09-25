@@ -40,7 +40,7 @@ export default async function EditEntityPage({
         <p className="text-sm">
           <Link
             href="/dashboard/entities"
-            className="font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline"
+            className="font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline"
           >
             Back to {TERMINOLOGY.entity.plural}
           </Link>

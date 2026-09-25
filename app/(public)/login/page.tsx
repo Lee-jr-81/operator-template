@@ -20,7 +20,7 @@ export default async function LoginPage() {
     <Container className="py-12 sm:py-16">
       <Card className="mx-auto max-w-md">
         <h1 className="text-xl font-semibold tracking-tight">Operator login</h1>
-        <p className="mt-2 mb-6 text-sm text-slate-600">
+        <p className="mt-2 mb-6 text-sm text-(--public-text-muted)">
           Sign in with the operator account created in Supabase Auth.
         </p>
         <LoginForm />

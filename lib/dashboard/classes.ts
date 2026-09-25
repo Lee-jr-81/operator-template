@@ -1,8 +1,8 @@
 export const dashLink =
-  "font-medium text-(--dash-fg) underline-offset-4 hover:underline";
+  "font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline";
 
 export const dashMutedLink =
-  "font-medium text-(--dash-muted-fg) underline-offset-4 hover:underline hover:text-(--dash-fg)";
+  "font-medium text-(--brand-primary) underline-offset-4 hover:text-(--brand-secondary) hover:underline";
 
 export const dashDangerLink =
   "font-medium text-(--dash-destructive) underline-offset-4 hover:underline";

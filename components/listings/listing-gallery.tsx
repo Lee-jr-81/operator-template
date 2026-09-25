@@ -228,7 +228,7 @@ function ListingPhotoViewer({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      className="fixed inset-0 z-60 flex flex-col bg-[#1a1916] text-white"
+      className="fixed inset-0 z-60 flex flex-col bg-[#252A2A] text-white"
     >
       <div className="flex h-19 shrink-0 items-center justify-between px-4 sm:px-6">
         <p id={titleId} className="text-sm font-medium">
@@ -329,7 +329,7 @@ function ListingPhotoViewer({
                 className={cn(
                   "relative h-14 w-20 overflow-hidden rounded-lg",
                   photoIndex === index &&
-                    "ring-2 ring-white ring-offset-2 ring-offset-[#1a1916]",
+                    "ring-2 ring-white ring-offset-2 ring-offset-[#252A2A]",
                 )}
                 aria-label={`Go to photo ${photoIndex + 1} of ${images.length}`}
                 aria-current={photoIndex === index ? "true" : undefined}

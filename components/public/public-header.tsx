@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { BRANDING } from "@/config/branding";
@@ -11,12 +12,20 @@ import { cn } from "@/lib/cn";
 const nav = [
   { href: "/listings", label: TERMINOLOGY.listing.plural },
   { href: "/articles", label: "Articles" },
-  { href: "/login", label: "Operator login" },
 ];
 
 export function PublicHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
+
+  function isCurrent(href: string) {
+    if (!pathname) {
+      return false;
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
 
   useEffect(() => {
     if (!open) {
@@ -40,7 +49,7 @@ export function PublicHeader() {
   }, [open]);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-(--public-border) bg-[color-mix(in_srgb,var(--public-surface)_96%,transparent)] backdrop-blur-[10px]">
+    <header className="sticky top-0 z-50 border-b border-(--public-border) bg-[color-mix(in_srgb,var(--public-surface)_96%,transparent)] backdrop-blur-[10px]">
       <Container className="flex h-19 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <img
@@ -56,7 +65,12 @@ export function PublicHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-(--public-text-muted) transition duration-200 hover:text-(--brand-primary)"
+              className={cn(
+                "text-sm font-medium transition duration-200 hover:text-(--brand-primary)",
+                isCurrent(item.href)
+                  ? "text-(--brand-primary)"
+                  : "text-(--public-text-muted)",
+              )}
             >
               {item.label}
             </Link>
@@ -110,7 +124,12 @@ export function PublicHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex min-h-12 items-center text-base font-medium text-(--public-text)"
+              className={cn(
+                "flex min-h-12 items-center text-base font-medium",
+                isCurrent(item.href)
+                  ? "text-(--brand-primary)"
+                  : "text-(--public-text)",
+              )}
               onClick={() => setOpen(false)}
             >
               {item.label}

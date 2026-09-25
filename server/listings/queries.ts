@@ -314,6 +314,31 @@ export async function listPublicRecentListingCards(limit: number) {
   return mapPublicCards(data ?? []);
 }
 
+export async function listLatestPublicListingsByCategoryId(
+  categoryId: string,
+  limit: number,
+) {
+  if (!isUuid(categoryId) || limit < 1) {
+    return [];
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("listings")
+    .select(PUBLIC_LISTING_CARD_COLUMNS)
+    .eq("status", "active")
+    .eq("category_id", categoryId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Failed to list latest category listings", { code: error.code });
+    throw new Error("Unable to load Listings.");
+  }
+
+  return mapPublicCards(data ?? []);
+}
+
 export async function listPublicListingsByCategoryId(categoryId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
